@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2011
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotacao", "Cotacao\Cotacao.csproj", "{F572E347-5FAE-4F8E-B22D-6BD543DFB04D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F572E347-5FAE-4F8E-B22D-6BD543DFB04D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F572E347-5FAE-4F8E-B22D-6BD543DFB04D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F572E347-5FAE-4F8E-B22D-6BD543DFB04D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F572E347-5FAE-4F8E-B22D-6BD543DFB04D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {694C1746-C34B-4266-B951-4396CF98702A}
+	EndGlobalSection
+EndGlobal
