@@ -10,6 +10,7 @@ using Cotacao.Models;
 
 namespace Cotacao.Controllers
 {
+    [Authorize]
     public class CotacoesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -33,13 +34,22 @@ namespace Cotacao.Controllers
             {
                 return HttpNotFound();
             }
-            return View(cotacao);
+            ViewBag.Mercado = cotacao.Mercado.Nome;
+            ViewBag.UsuarioCadastro = cotacao.UsuarioCadastro;
+            ViewBag.Data = cotacao.Date;
+            ViewBag.CotacaoId = cotacao.Id;
+            return View(db.Items.Where(x => x.CotacaoId == id).ToList());
+            //return View(db.Cotacaos.Where(x => x.MercadoId == id).ToList());
         }
 
         // GET: Cotacoes/Create
-        public ActionResult Create()
+        public ActionResult Create(int mercadoId)
         {
-            ViewBag.MercadoId = new SelectList(db.Mercadoes, "Id", "Nome");
+            //ViewBag.MercadoId = new SelectList(db.Mercadoes, "Id", "Nome");
+            //ViewBag.MercadoId = new SelectList(db.Mercadoes.Where(x => x.Id == mercadoId).ToList(), "Id", "Nome");
+            Mercado mercado = db.Mercadoes.Find(mercadoId);
+            ViewBag.MercadoId = mercado.Id;
+            ViewBag.Mercado = mercado.Nome;
             return View();
         }
 

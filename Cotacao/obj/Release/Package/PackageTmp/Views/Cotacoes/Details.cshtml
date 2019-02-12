@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Cotacao.Controllers.Item>
+
+@{
+    /**/
+
+    ViewBag.Title = "Details";
+}
+
+
+<div class="container">
+    <div class="row jumbotron">
+        <h2>Cotação @ViewBag.Mercado de @ViewBag.Data por @ViewBag.UsuarioCadastro</h2>
+    </div>
+    <div class="row">
+        <div class="col-lg-12" id="divIncluirProduto">
+            <form action="/itens/create" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="CotacaoId" name="CotacaoId" value="@ViewBag.CotacaoId" />
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label>Produto</label>
+                            <input type="text" class="form-control" id="Nome" name="Nome" placeholder="Produto" />
+                        </div>
+                        <div class="col-lg-2">
+                            <label>Qtd. Embalagem</label>
+                            <input type="number" class="form-control" id="QtdEmbalagem" name="QtdEmbalagem" />
+                        </div>
+                        <div class="col-lg-2">
+                            <label>Valor Embalagem</label>
+                            <input type="number" class="form-control" id="ValorTotal" name="ValorTotal" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row col-lg-12">
+                        <div class="col-lg-3">
+                            <input type="submit" value="Add" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Embalagem</th>
+                        <th>Valor</th>
+                        <th>...</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="@Html.DisplayFor(modelItem => item.Id)">
+                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                            <td>@Html.DisplayFor(modelItem => item.QtdEmbalagem)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ValorTotal)</td>
+                            <td><button type="button" class="btn btn-danger" onclick="deletaLinha(@Html.DisplayFor(modelItem => item.Id))">X</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" href="/Mercados">Voltar</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function deletaLinha(id) {
+            var parametros = {
+                'id': id
+            };
+            $.ajax({
+                url: "@Url.Action("Delete", "Itens")",
+                data: (parametros),
+                dataType: "json",
+                type: "GET",
+                cache:  false,
+                success: function (data) {
+                    $("#" + id).remove();
+                }, error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
+}

@@ -1,26 +1,42 @@
-﻿@model Cotacao.Controllers.Mercado
+﻿@model IEnumerable<Cotacao.Controllers.Cotacao>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Mercado";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Mercado</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-    </dl>
+<div class="container">
+    <div class="row jumbotron">
+        <h2>@ViewBag.Mercado</h2>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" href="/Cotacoes/Create?mercadoId=@ViewBag.MercadoId">Nova Cotação</a>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Usuario Cadastro</th>
+                        <th>...</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UsuarioCadastro)</td>
+                        <td><a href="/Cotacoes/Details/@Html.DisplayFor(modelItem => item.Id)"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+                        
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" href="/Mercados">Voltar</a>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

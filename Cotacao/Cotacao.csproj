@@ -190,14 +190,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Cotacao.cs" />
+    <Compile Include="Controllers\ItensController.cs" />
+    <Compile Include="Models\Cotacao.cs" />
     <Compile Include="Controllers\CotacoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Item.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\Mercado.cs" />
+    <Compile Include="Models\Mercado.cs" />
     <Compile Include="Controllers\MercadosController.cs" />
-    <Compile Include="Controllers\meuContexto.cs" />
+    <Compile Include="Models\meuContexto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,6 +220,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -274,6 +276,13 @@
     <Content Include="Views\Cotacoes\Details.cshtml" />
     <Content Include="Views\Cotacoes\Edit.cshtml" />
     <Content Include="Views\Cotacoes\Index.cshtml" />
+    <Content Include="Views\Itens\Create.cshtml" />
+    <Content Include="Views\Itens\Delete.cshtml" />
+    <Content Include="Views\Itens\Details.cshtml" />
+    <Content Include="Views\Itens\Edit.cshtml" />
+    <Content Include="Views\Itens\Index.cshtml" />
+    <Content Include="Views\Home\_HomeAdm.cshtml" />
+    <Content Include="Views\Home\_Integrantes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

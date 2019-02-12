@@ -33,5 +33,7 @@ namespace Cotacao.Models
         public System.Data.Entity.DbSet<Cotacao.Controllers.Mercado> Mercadoes { get; set; }
 
         public System.Data.Entity.DbSet<Cotacao.Controllers.Cotacao> Cotacaos { get; set; }
+
+        public System.Data.Entity.DbSet<Cotacao.Controllers.Item> Items { get; set; }
     }
 }

@@ -1,0 +1,49 @@
+﻿@model Cotacao.Controllers.Cotacao
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div class="container">
+    <div class="row jumbotron">
+        <h2>Cotação: @ViewBag.Mercado</h2>
+    </div>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <div class="row col-lg-12">
+                    <div class="col-lg-2">
+                        <label>Data</label>
+                        <input type="date" class="form-control" id="Date" name="Date"/>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label>Usuário</label>
+                        <input type="text" id="UsuarioCadastro" class="form-control" name="UsuarioCadastro"/>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <input type="hidden" id="MercadoId" name="MercadoId" class="form-control" value="@ViewBag.MercadoId"/>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

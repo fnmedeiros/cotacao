@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Cotacao.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Cotacao.Controllers
 {
+    [Authorize]
     public class MercadosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,6 +19,8 @@ namespace Cotacao.Controllers
         // GET: Mercados
         public ActionResult Index()
         {
+            var idUsuario = User.Identity.GetUserId();
+
             return View(db.Mercadoes.ToList());
         }
 
@@ -32,7 +36,11 @@ namespace Cotacao.Controllers
             {
                 return HttpNotFound();
             }
-            return View(mercado);
+
+            //List<Cotacao> cotacoes = mercado.Cotacoes.ToList();
+            ViewBag.Mercado = mercado.Nome;
+            ViewBag.MercadoId = mercado.Id;
+            return View(db.Cotacaos.Where(x => x.MercadoId == id).ToList());
         }
 
         // GET: Mercados/Create
