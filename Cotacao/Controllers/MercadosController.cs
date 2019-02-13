@@ -15,12 +15,10 @@ namespace Cotacao.Controllers
     public class MercadosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        #region MetodosPrincipais
         // GET: Mercados
         public ActionResult Index()
         {
-            var idUsuario = User.Identity.GetUserId();
-
             return View(db.Mercadoes.ToList());
         }
 
@@ -130,6 +128,29 @@ namespace Cotacao.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        #endregion MetodosPrincipais
+
+        public JsonResult GetMercados()
+        {
+            //View(db.Mercadoes.ToList());
+            var resultado = db.Mercadoes.ToList();
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addMercado([Bind(Include = "Id,Nome")] Mercado mercado)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Mercadoes.Add(mercado);
+                db.SaveChanges();
+                return Json(new { resultado = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { resultado = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }

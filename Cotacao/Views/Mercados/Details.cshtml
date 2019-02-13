@@ -11,32 +11,21 @@
     <div class="row">
         <a class="btn btn-primary" href="/Cotacoes/Create?mercadoId=@ViewBag.MercadoId">Nova Cotação</a>
     </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Usuario Cadastro</th>
-                        <th>...</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Date)</td>
-                        <td>@Html.DisplayFor(modelItem => item.UsuarioCadastro)</td>
-                        <td><a href="/Cotacoes/Details/@Html.DisplayFor(modelItem => item.Id)"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
-                        
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <div class="col-lg-12 row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-2">
+                <a class="btn btn-primary btn-lg btn-block dataitem" style="margin:5px" href="/Cotacoes/Details/@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Date)</a>
+            </div>
+        }
     </div>
     <div class="row">
         <a class="btn btn-primary" href="/Mercados">Voltar</a>
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        $(".dataitem").mask("99/99/9999");
+    </script>
+}

@@ -224,7 +224,9 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.mask.min" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.mask.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -283,6 +285,7 @@
     <Content Include="Views\Itens\Index.cshtml" />
     <Content Include="Views\Home\_HomeAdm.cshtml" />
     <Content Include="Views\Home\_Integrantes.cshtml" />
+    <Content Include="Views\Mercados\_CadastroMercado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

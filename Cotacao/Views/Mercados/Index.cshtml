@@ -9,25 +9,63 @@
         <h2>Mercados</h2>
     </div>
     <div class="row">
-        <a class="btn btn-primary" href="/Mercados/Create">Cadastrar</a>
+        @Html.Partial("_CadastroMercado")
     </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td><a href="Mercados/Details/@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Nome)</a></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <br />
+    <div class="col-lg-12" id="divMercados">
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function carregaMercados() {
+            
+            // limpa os registros da divMercados
+            $("#divMercados").empty();
+
+            //Busca os mercados no controller e adiciona na divMercados
+            $.ajax({
+                dataType: "json",
+                type: "GET",
+                url: "/mercados/GetMercados",
+                success: function (dados) {
+                    $(dados).each(function (i) {
+                        $("#divMercados").append("<div class='col-lg-3'><a class='btn btn-primary btn-lg btn-block' style='margin:5px' href='Mercados/Details/" + dados[i].Id + "'>" + dados[i].Nome+"</a></div>");
+                    });
+                }
+            });
+        };
+
+        $(function () {
+            carregaMercados();    
+
+            //Cadastra Mercado
+            $("#btnCadastrar").click(function () {
+                if ($("#Nome").val() == "") {
+                    alert("Informe o nome!")
+                } else {
+                    dados = $("#formCadastro").serialize();
+
+                    $.ajax({
+                        url: "mercados/addMercado",
+                        async: false,
+                        data: dados,
+                        method: 'POST',
+                        success: function (retorno) {
+                            carregaMercados();
+                            $("#Nome").val("");
+                            $("#collapseExample").hide();
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+
+                    });
+                }
+            });
+
+        });
+
+        
+    </script>
+}
