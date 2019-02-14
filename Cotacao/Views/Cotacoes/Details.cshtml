@@ -12,38 +12,13 @@
         <h2>Cotação @ViewBag.Mercado de @ViewBag.Data por @ViewBag.UsuarioCadastro</h2>
     </div>
     <div class="row">
-        <div class="col-lg-12" id="divIncluirProduto">
-            <form action="/itens/create" method="post">
-                @Html.AntiForgeryToken()
-                <input type="hidden" id="CotacaoId" name="CotacaoId" value="@ViewBag.CotacaoId" />
-                <div class="form-horizontal">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <label>Produto</label>
-                            <input type="text" class="form-control" id="Nome" name="Nome" placeholder="Produto" />
-                        </div>
-                        <div class="col-lg-2">
-                            <label>Qtd. Embalagem</label>
-                            <input type="number" class="form-control" id="QtdEmbalagem" name="QtdEmbalagem" />
-                        </div>
-                        <div class="col-lg-2">
-                            <label>Valor Embalagem</label>
-                            <input type="number" class="form-control" id="ValorTotal" name="ValorTotal" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row col-lg-12">
-                        <div class="col-lg-3">
-                            <input type="submit" value="Add" class="btn btn-primary" />
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+        @Html.Partial("_CadastroProduto")
     </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <table class="table table-striped">
+    <br />
+    <div class="panel panel-primary" id="divTblItens">
+        <div class="panel-heading">Produtos</div>
+        <div class="panel-body" id="divItens">
+            <table class="table table-striped" id="tblItens">
                 <thead>
                     <tr>
                         <th>Produto</th>
@@ -53,42 +28,101 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr id="@Html.DisplayFor(modelItem => item.Id)">
-                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                            <td>@Html.DisplayFor(modelItem => item.QtdEmbalagem)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ValorTotal)</td>
-                            <td><button type="button" class="btn btn-danger" onclick="deletaLinha(@Html.DisplayFor(modelItem => item.Id))">X</button></td>
-                        </tr>
-                    }
                 </tbody>
             </table>
         </div>
     </div>
     <div class="row">
-        <a class="btn btn-primary" href="/Mercados">Voltar</a>
+        <a class="btn btn-primary" href="/Mercados/Details/@ViewBag.MercadoId">Voltar</a>
     </div>
 </div>
 
 @section Scripts {
-    <script>
-        function deletaLinha(id) {
-            var parametros = {
-                'id': id
-            };
-            $.ajax({
-                url: "@Url.Action("Delete", "Itens")",
-                data: (parametros),
-                dataType: "json",
-                type: "GET",
-                cache:  false,
-                success: function (data) {
-                    $("#" + id).remove();
-                }, error: function (err) {
-                    console.log(err);
-                }
-            });
-        }
-    </script>
+<script>
+    function deletaLinha(id) {
+        var parametros = {'id': id};
+        $.ajax({
+            url: "@Url.Action("Delete", "Itens")",
+            data: (parametros),
+            dataType: "json",
+            type: "GET",
+            cache: false,
+            async: false,
+            success: function (data) {
+                $("#" + id).remove();
+            }, error: function (err) {
+                console.log(err);
+            }
+        });
+        exibeOcultaTabela();
+    }
+
+    function exibeOcultaTabela() {
+        if ($("#tblItens tbody tr").length > 0) {
+            $("#divTblItens").show();
+        } else {
+            $("#divTblItens").hide();
+        };
+    }
+
+    function carregaItens() {
+        // limpa os registros da tblItens
+        $("#tblItens tbody").empty();
+
+        //Busca os itens no controller e adiciona na tblItens
+        $.ajax({
+            dataType: "json",
+            type: "GET",
+            url: "/itens/GetItens",
+            data: "idCotacao=" + $("#CotacaoId").val(),
+            async: false,
+            success: function (dados) {
+
+                $(dados).each(function (i) {
+                    $("#tblItens tbody").append("<tr id='" + dados[i].Id + "'></tr>");
+                    $("#" + dados[i].Id).append("<td>"+dados[i].Nome+"</td>");
+                    $("#" + dados[i].Id).append("<td>" + dados[i].QtdEmbalagem+"</td>");
+                    $("#" + dados[i].Id).append("<td>" + dados[i].ValorTotal+"</td>");
+                    $("#" + dados[i].Id).append("<td><button type='button' class='btn btn-danger' onclick='deletaLinha(" + dados[i].Id + ")'>X</button></td>");
+                });
+            }, error: function (err) {
+                console.log(err);
+            }
+        });
+        exibeOcultaTabela();
+    }
+
+    $(function () {
+        carregaItens();
+        $(".qtdEmbalagem").mask("999999999");
+        $(".vlrTotal").mask("9999,99");
+
+        //Cadastra Produto
+        $("#btnCadastrar").click(function () {
+            if (($("#Nome").val() == "") || ($("#QtdEmbalagem").val() == "") || ($("#ValorTotal").val() == "")) {
+                alert("Preencha todas as informações!")
+            } else {
+                dados = $("#formCadastro").serialize();
+
+                $.ajax({
+                    url: "/Itens/addItem",
+                    async: false,
+                    data: dados,
+                    method: 'POST',
+                    success: function (retorno) {
+                        carregaItens();
+                        $("#Nome").val("");
+                        $("#QtdEmbalagem").val("");
+                        $("#ValorTotal").val("");
+                        exibeOcultaTabela();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+
+                });
+            }
+        });
+    })
+</script>
 }

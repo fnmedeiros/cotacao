@@ -207,6 +207,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\CotacaoViewModel.cs" />
+    <Compile Include="ViewModel\ItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -286,6 +288,8 @@
     <Content Include="Views\Home\_HomeAdm.cshtml" />
     <Content Include="Views\Home\_Integrantes.cshtml" />
     <Content Include="Views\Mercados\_CadastroMercado.cshtml" />
+    <Content Include="Views\Mercados\_CadastroCotacao.cshtml" />
+    <Content Include="Views\Cotacoes\_CadastroProduto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

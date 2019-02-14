@@ -1,0 +1,30 @@
+﻿<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#divFormProduto" aria-expanded="false" aria-controls="collapseExample">
+    Add Produto
+</button>
+<br />
+<div class="collapse" id="divFormProduto">
+    <div class="well">
+        <form action="/" method="post" id="formCadastro">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="CotacaoId" id="CotacaoId" value="@ViewBag.CotacaoId" />
+            <div class="row">
+                <div class="col-lg-3">
+                    <label>Produto</label>
+                    <input type="text" class="form-control" id="Nome" name="Nome" placeholder="Produto" />
+                </div>
+                <div class="col-lg-2">
+                    <label>Qtd. Embalagem</label>
+                    <input type="text" class="form-control qtdEmbalagem" id="QtdEmbalagem" name="QtdEmbalagem" />
+                </div>
+                <div class="col-lg-2">
+                    <label>Valor Embalagem</label>
+                    <input type="text" class="form-control vlrTotal" id="ValorTotal" name="ValorTotal" />
+                </div>
+                <div class="col-lg-4">
+                    <br />
+                    <input type="button" value="Cadastrar" class="btn btn-primary" id="btnCadastrar" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

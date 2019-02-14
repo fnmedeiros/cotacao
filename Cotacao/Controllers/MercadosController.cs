@@ -15,7 +15,9 @@ namespace Cotacao.Controllers
     public class MercadosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
         #region MetodosPrincipais
+        
         // GET: Mercados
         public ActionResult Index()
         {

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Cotacao.Models;
+using Cotacao.ViewModel;
 
 namespace Cotacao.Controllers
 {
@@ -14,6 +15,8 @@ namespace Cotacao.Controllers
     public class ItensController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        #region MetodosPrincipais
 
         // GET: Itens
         public ActionResult Index()
@@ -92,6 +95,17 @@ namespace Cotacao.Controllers
             ViewBag.CotacaoId = new SelectList(db.Cotacaos, "Id", "UsuarioCadastro", item.CotacaoId);
             return View(item);
         }
+        
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #endregion MetodosPrincipais
 
         public ActionResult Delete(int id)
         {
@@ -101,13 +115,50 @@ namespace Cotacao.Controllers
             return Json(new { resultado = true }, JsonRequestBehavior.AllowGet);
         }
 
-        protected override void Dispose(bool disposing)
+        public JsonResult GetItens(int idCotacao)
         {
-            if (disposing)
+            var itens = db.Items.Where(x => x.CotacaoId == idCotacao);
+
+            List<ItemViewModel> resultado = new List<ItemViewModel>();
+            foreach (var item in itens)
             {
-                db.Dispose();
+                resultado.Add(new ItemViewModel
+                {
+                    Id = item.Id,
+                    Nome = item.Nome,
+                    CotacaoId = item.CotacaoId,
+                    QtdEmbalagem = item.QtdEmbalagem,
+                    ValorTotal = item.ValorTotal
+                });
             }
-            base.Dispose(disposing);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addItem([Bind(Include = "Id,Nome,QtdEmbalagem,ValorTotal,CotacaoId")] Item item)
+        {
+            if (ModelState.IsValid)
+            {
+                Item novoItem = new Item();
+                List<ItemViewModel> itemList = new List<ItemViewModel>();
+                novoItem = db.Items.Add(item);
+                //db.Items.Add(item);
+                db.SaveChanges();
+                itemList.Add(new ItemViewModel
+                {
+                    Id = novoItem.Id,
+                    Nome = novoItem.Nome,
+                    QtdEmbalagem = novoItem.QtdEmbalagem,
+                    ValorTotal = novoItem.ValorTotal,
+                    CotacaoId = novoItem.CotacaoId
+                });
+                //return Json(new { resultado = true }, JsonRequestBehavior.AllowGet);
+                return Json(itemList, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { resultado = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }

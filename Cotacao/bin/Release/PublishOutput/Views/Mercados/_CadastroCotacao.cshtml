@@ -1,0 +1,23 @@
+﻿<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#divFormCotacao" aria-expanded="false" aria-controls="collapseExample">
+    Nova Cotação
+</button>
+<br />
+<div class="collapse" id="divFormCotacao">
+    <div class="well">
+        <form action="/" method="post" id="formCadastro">
+            <div class="row">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="UsuarioCadastro" name="UsuarioCadastro" value="@User.Identity.Name" />
+                <input type="hidden" id="MercadoId" name="MercadoId" class="form-control" value="@ViewBag.MercadoId" />
+                <div class="col-lg-4">
+                    <label>Data</label>
+                    <input type="date" class="form-control" id="Date" name="Date" />
+                </div>
+                <div class="col-lg-4">
+                    <br />
+                    <input type="button" value="Cadastrar" class="btn btn-primary" id="btnCadastrar" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@*<div class="container">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" class="btn" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Cadastrar Mercado
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <form action="/" method="post" id="formCadastro">
+                        <div class="row">
+                            @Html.AntiForgeryToken()
+                            <div class="col-lg-4">
+                                <label>Nome</label>
+                                <input type="text" class="form-control" id="Nome" name="Nome" />
+                            </div>
+                            <div class="col-lg-4">
+                                <br />
+                                <input type="button" value="Cadastrar" class="btn btn-primary" id="btnCadastrar" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#divFormMercado" aria-expanded="false" aria-controls="collapseExample">
+    Novo Mercado
+</button>
+<br />
+<div class="collapse" id="divFormMercado">
+    <div class="well">
+        <form action="/" method="post" id="formCadastro">
+            <div class="row">
+                @Html.AntiForgeryToken()
+                <div class="col-lg-4">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" id="Nome" name="Nome" />
+                </div>
+                <div class="col-lg-4">
+                    <br />
+                    <input type="button" value="Cadastrar" class="btn btn-primary" id="btnCadastrar" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
