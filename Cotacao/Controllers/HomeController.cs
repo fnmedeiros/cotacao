@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cotacao.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,8 @@ namespace Cotacao.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
             return View();
@@ -25,6 +28,21 @@ namespace Cotacao.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public JsonResult GetUsuarios()
+        {
+            var usuarios = db.Users.ToList();
+            List<RegisterViewModel> resultado = new List<RegisterViewModel>();
+            foreach (var item in usuarios)
+            {
+                resultado.Add(new RegisterViewModel
+                {
+                    Email = item.Email
+                });
+            }
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
         }
     }
 }

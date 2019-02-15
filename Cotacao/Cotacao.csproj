@@ -209,6 +209,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CotacaoViewModel.cs" />
     <Compile Include="ViewModel\ItemViewModel.cs" />
+    <Compile Include="ViewModel\UsuarioViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

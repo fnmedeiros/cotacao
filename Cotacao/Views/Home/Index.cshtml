@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -14,3 +15,42 @@
     </div>
 </div>
 <br />
+
+@if (User.Identity.GetUserName() == "felipenovaesmedeiros@gmail.com")
+{
+
+@Html.Partial("_HomeAdm")
+
+@section Scripts {
+    <script>
+        function carregaUsuarios() {
+            // limpa os registros da tblItens
+            $("#tblUsuarios tbody").empty();
+
+            //Busca os itens no controller e adiciona na tblItens
+            $.ajax({
+                dataType: "json",
+                type: "GET",
+                url: "/home/GetUsuarios",
+                async: false,
+                success: function (dados) {
+
+                    $(dados).each(function (i) {
+                        $("#tblUsuarios tbody").append(
+                            "<tr>" +
+                                "<td>" + dados[i].Email + "</td>" +
+                                "<td>O</td>" +
+                            "</tr>");
+                    });
+                }, error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        $(function () {
+            carregaUsuarios();
+        })
+    </script>
+}
+}
