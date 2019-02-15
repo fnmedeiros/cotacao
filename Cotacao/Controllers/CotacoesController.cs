@@ -162,6 +162,26 @@ namespace Cotacao.Controllers
             return Json(resultado, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetCotacoesPorUsuario(string usuario)
+        {
+            //var cotacaoes = db.Cotacaos.Include(c => c.Mercado);
+            var cotacaoes = db.Cotacaos.Where(c => c.UsuarioCadastro == usuario);
+
+            List<CotacaoViewModel> resultado = new List<CotacaoViewModel>();
+            foreach (var item in cotacaoes)
+            {
+                resultado.Add(new CotacaoViewModel
+                {
+                    Id = item.Id,
+                    Date = item.Date.ToString("dd/MM/yyyy"),
+                    UsuarioCadastro = item.UsuarioCadastro,
+                    MercadoId = item.MercadoId
+                });
+            }
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult addCotacao([Bind(Include = "Id,Date,UsuarioCadastro,MercadoId")] Cotacao cotacao)
