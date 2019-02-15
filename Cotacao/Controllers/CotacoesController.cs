@@ -40,7 +40,7 @@ namespace Cotacao.Controllers
             ViewBag.Mercado = cotacao.Mercado.Nome;
             ViewBag.MercadoId = cotacao.MercadoId;
             ViewBag.UsuarioCadastro = cotacao.UsuarioCadastro;
-            ViewBag.Data = cotacao.Date;
+            ViewBag.Data = cotacao.Date.ToString("dd/MM/yyyy");
             ViewBag.CotacaoId = cotacao.Id;
             return View(db.Items.Where(x => x.CotacaoId == id).ToList());
         }

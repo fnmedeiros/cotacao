@@ -8,8 +8,10 @@
 
 
 <div class="container">
-    <div class="row jumbotron">
-        <h2>Cotação @ViewBag.Mercado de @ViewBag.Data por @ViewBag.UsuarioCadastro</h2>
+    <div class="row jumbotron text-center">
+        <h2>@ViewBag.Mercado</h2> 
+        <h3>@ViewBag.Data</h3>
+        <h4>@ViewBag.UsuarioCadastro</h4>
     </div>
     <div class="row">
         @Html.Partial("_CadastroProduto")

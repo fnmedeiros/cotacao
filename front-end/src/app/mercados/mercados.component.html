@@ -1,0 +1,14 @@
+<h2>{{mercado.name | uppercase}} Details</h2>
+<div><span>id: </span>{{mercado.id}}</div>
+<div>
+  <label>name:
+    <input [(ngModel)]="mercado.name" placeholder="name">
+  </label>
+</div>
+
+<h2>Mercados</h2>
+<ul class="mercados">
+  <li *ngFor="let mercado of mercados">
+    <span class="badge">{{mercado.id}}</span> {{mercado.name}}
+  </li>
+</ul>
